@@ -2,7 +2,7 @@
 
 **Supporting-файл скилла `basys-metadata`.** Открывать при настройке проведения по регистрам. Основной файл скилла — `SKILL.md`.
 
-**Первоисточник:** `../../../basys-docs/ru/metadata/recordsCreation.md`.
+**Первоисточник:** `basys-docs/ru/metadata/recordsCreation.md`.
 
 ## Что это и когда применяется
 
@@ -10,7 +10,7 @@
 
 ## Предпосылки
 
-- У **вида** метаданных должен быть выставлен флаг `CanCreateRecords = true`. Для `operation` он уже стоит. Проверять в `../../../metadata/system/kinds/kind.<name>.json`.
+- У **вида** метаданных должен быть выставлен флаг `CanCreateRecords = true`. Для `operation` он уже стоит. Проверять в `project/metadata/system/kinds/kind.<name>.json`.
 - В `Header.Columns` объекта-источника должна быть стандартная колонка **`create_records`** (`StandardColumnUid = fee422db-18dc-442a-a8dd-01df76c20a98`). Когда этот флаг `false`, старые записи удаляются, новые не создаются — эквивалент «отмены проведения».
 - Регистр-приёмник — это `DataObject` вида `records`, в шапке которого есть стандартные служебные колонки: `MetaObjectKind`, `MetaObject`, `Object`, `Row`, `Period`. Их связь с механизмом задаётся **на виде** (`RecordsSettings` блок в `kind.operation.json`: `StorageKindColumnUid`, `StorageMetaObjectColumnUid`, `StorageObjectColumnUid`, `StorageRowColumnUid`, `StoragePeriodColumnUid`). AI это **не** настраивает — это живёт на виде, не на объекте.
 - Колонки `MetaObjectKind`, `MetaObject`, `Object`, `Row` заполняются движком автоматически — **не перечислять их** в `Columns` правила. Колонку `Period` **обязательно** задавать выражением (обычно `$h.date`).
@@ -115,7 +115,7 @@
 
 > Табличные части — через `$t.`, не через `$h.`. Префикс `$h.` зарезервирован для полей шапки.
 
-Возвращаемый `DataTable` поддерживает цепочечные методы BaSYS.FX: `.select(columns)`, `.addColumn(columnDef)`, `.process(fn)`, `.groupBy(keys, aggregates)` и другие — см. `../../../basys-docs/ru/calculations/dataTable.md`.
+Возвращаемый `DataTable` поддерживает цепочечные методы BaSYS.FX: `.select(columns)`, `.addColumn(columnDef)`, `.process(fn)`, `.groupBy(keys, aggregates)` и другие — см. `basys-docs/ru/calculations/dataTable.md`.
 
 ### Ограничения текущей версии
 

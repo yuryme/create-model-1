@@ -2,7 +2,7 @@
 
 **Supporting-файл скилла `basys-metadata`.** Открывать при работе с отчётами/дашбордами/визуализацией. Основной файл скилла — `SKILL.md`.
 
-**Первоисточник:** `../../../basys-docs/ru/reporting/dataView.md`.
+**Первоисточник:** `basys-docs/ru/reporting/dataView.md`.
 
 ## Когда применять `data_view`
 
@@ -12,7 +12,7 @@
 
 ## Размещение файлов
 
-- У вида `data_view` флаг `StoreData = false`, поэтому файл настроек валидируется по `../../../metadata/system/schemas/dataViewSettings.schema.json` (в `$schema` — правильный относительный путь).
+- У вида `data_view` флаг `StoreData = false`, поэтому файл настроек валидируется по `project/metadata/system/schemas/dataViewSettings.schema.json` (в `$schema` — правильный относительный путь).
 - **Settings-файл:** `project/metadata/data_view/{name}/data_view.{name}.json`.
 - **Скрипты источников данных** — отдельные `.bjs`-файлы в той же папке: `data_view.{name}.data_source.{dataSourceName}.bjs` (например, `data_view/nomenclature_balance/data_view.nomenclature_balance.data_source.rows.bjs`).
 - Верхний уровень — стандартные поля метаобъекта (`Uid`, `Name`, `Title`, `Memo`, `IsActive`, `Version`) плюс три коллекции: `DataSources`, `Filters`, `Indicators`.
@@ -47,7 +47,7 @@
 
 ### Правила
 
-- Для доступа к БД — **QueryBuilder** (`from('kind.name')...query()`), а не обычный JS. См. `../../../basys-docs/ru/calculations/queryBuilder.md`.
+- Для доступа к БД — **QueryBuilder** (`from('kind.name')...query()`), а не обычный JS. См. `basys-docs/ru/calculations/queryBuilder.md`.
 - В контексте скрипта источника всегда доступны две неявные переменные:
   - **`_filters`** — текущие значения фильтров панели (если они есть в `Filters`). Передавать в запросы через `.parameter()`.
   - **`_data`** — результаты **других** источников этой же панели, доступные по `Name` (например, `_data.contracts`). Один источник может строиться поверх результата другого; платформа автоматически определяет порядок выполнения по использованию.
@@ -70,7 +70,7 @@
 | Таблица | `pv_data_table` | `bd4b0526-449e-4351-85d1-b18a6aafa1b8` |
 | Сводная таблица | `bs_pivot` | `65dd8c74-5337-4e35-bfab-24100f94b2b5` |
 
-> ⚠️ Эти UID — **из чужой выгрузки** (заимствованы из Cursor-rules). Перед использованием **обязательно свериться** с нашей `../../../metadata/system/kinds/kind.data_view.json` или с конкретной `data_view`-панелью в нашей или чужой системе. В разных инсталляциях BaSYS UID одного и того же вида/индикатора могут отличаться.
+> ⚠️ Эти UID — **из чужой выгрузки** (заимствованы из Cursor-rules). Перед использованием **обязательно свериться** с нашей `project/metadata/system/kinds/kind.data_view.json` или с конкретной `data_view`-панелью в нашей или чужой системе. В разных инсталляциях BaSYS UID одного и того же вида/индикатора могут отличаться.
 
 ### Общие поля индикатора
 

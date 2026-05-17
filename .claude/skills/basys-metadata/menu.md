@@ -2,7 +2,7 @@
 
 **Supporting-файл скилла `basys-metadata`.** Открывать при работе с навигационными меню. Основной файл скилла — `SKILL.md`.
 
-**Первоисточник:** `../../../basys-docs/ru/metadata/menu.md`.
+**Первоисточник:** `basys-docs/ru/metadata/menu.md`.
 
 ## Что такое меню в BaSYS
 
@@ -128,7 +128,7 @@ MenuSettings
 В авто-режиме:
 - `Kind = 3`,
 - `AutoFill = true`,
-- `MetaObjectKindUid` — `Uid` нужного вида из `../../../metadata/system/kinds/kind.<kindName>.json` (например, `"032d8377-500f-4631-b435-1f7f69046674"` для `catalog`),
+- `MetaObjectKindUid` — `Uid` нужного вида из `project/metadata/system/kinds/kind.<kindName>.json` (например, `"032d8377-500f-4631-b435-1f7f69046674"` для `catalog`),
 - `MetaObjectKindUidParsed` — то же значение,
 - `Items = []` (сервер заполняет на лету; локальный контент игнорируется),
 - `ItemsPerColumn` — настраивать под ожидаемое количество объектов (`10`–`30` — типично).
@@ -258,4 +258,4 @@ MenuSettings
 - Каждая вложенная сущность — свежий уникальный `Uid` (UUID v4).
 - `Title` — лаконичный (отображается в узких вертикальных колонках меню).
 - Согласованное использование иконок: одинаковые иконки для записей одного типа ресурса.
-- Примеры — в `../../../reference/metadata/menu/`.
+- Примеры — в `reference/metadata/menu/`.

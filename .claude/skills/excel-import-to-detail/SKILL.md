@@ -18,7 +18,7 @@ when_to_use: Конкретный рецепт связки workflow + кома�
    - `SheetName` (по умолчанию `"Лист1"`).
    - `SourceFieldName` — точный текст заголовка колонки в Excel.
    - `DestinationFieldName` — имя колонки в целевой табличной части.
-   - `DataTypeUid` для каждой строки маппинга — искать в `../../../metadata/system/dataTypes.json`.
+   - `DataTypeUid` для каждой строки маппинга — искать в `project/metadata/system/dataTypes.json`.
 4. **Колонки с формулами в целевой табличной части.** Проверить колонки на наличие непустого поля `Formula`. **Их значения нужно вычислять явно в workflow** — формулы НЕ срабатывают автоматически при `$t.load(source)`. Если такие колонки есть — шаг `result` обязателен.
 5. **Пост-обработка** — нужны ли join, фильтрация, очистка? Если нет и нет колонок с формулами — результат шага `mapping` возвращается напрямую.
 
@@ -232,6 +232,6 @@ setIsModified(true);
 
 ## Связанные правила (если нужны подробности)
 
-- Общие правила workflow — `../basys-metadata/workflows.md` (полный список видов шагов, JSON-структура, чек-лист для других сценариев).
-- Общие правила команд — `../basys-metadata/commands.md` (контекст команды, form-control функции, варианты Kind).
-- Общие правила метаобъектов — `../basys-metadata/SKILL.md` (именование, UID, чек-лист сохранения).
+- Общие правила workflow — `project/.claude/skills/basys-metadata/workflows.md` (полный список видов шагов, JSON-структура, чек-лист для других сценариев).
+- Общие правила команд — `project/.claude/skills/basys-metadata/commands.md` (контекст команды, form-control функции, варианты Kind).
+- Общие правила метаобъектов — `project/.claude/skills/basys-metadata/SKILL.md` (именование, UID, чек-лист сохранения).

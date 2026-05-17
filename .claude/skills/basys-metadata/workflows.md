@@ -2,7 +2,7 @@
 
 **Supporting-файл скилла `basys-metadata`.** Открывать при работе с процессами (видом `workflow`). Основной файл скилла — `SKILL.md`.
 
-**Первоисточник:** `../../../basys-docs/ru/workflows/`.
+**Первоисточник:** `basys-docs/ru/workflows/`.
 
 ## Что такое workflow
 
@@ -60,7 +60,7 @@
 | `message` | `e192c288-154e-4778-b92c-64da27279796` | Залогировать сообщение. |
 | `sleep` | `2a5aca6d-2c41-4bd2-9e03-b35df7dab23e` | Пауза. |
 
-> ⚠️ UID-ы шагов **взяты из чужой выгрузки** (Cursor-rules). Перед использованием **обязательно свериться** с нашей `../../../metadata/system/kinds/kind.workflow.json` — UID-ы видов шагов могут отличаться между инсталляциями.
+> ⚠️ UID-ы шагов **взяты из чужой выгрузки** (Cursor-rules). Перед использованием **обязательно свериться** с нашей `project/metadata/system/kinds/kind.workflow.json` — UID-ы видов шагов могут отличаться между инсталляциями.
 
 ## JS-шаг (`java_script`)
 
@@ -85,6 +85,39 @@
   "IsActive": true
 }
 ```
+
+### QueryBuilder: имена PK у разных видов и фильтр табличных частей по шапке
+
+В табличных частях операций (и других видов с табличными частями) каждая строка имеет колонку **`object_uid`** — техническая ссылка на PrimaryKey шапки. **Имя PK не универсально — оно зависит от вида.** Таблица соответствий (источник — `project/metadata/system/kinds/kind.*.json`, колонка с `PrimaryKey: true`):
+
+| Вид | Имя PK у шапки | Тип PK |
+|---|---|---|
+| `catalog` | `id` | Int32 |
+| `enum` | `name` | String 20 |
+| `operation` | `number` | Int32 |
+
+Имя `id` есть **только** у `catalog`. У `operation` PK называется **`number`**; у `enum` — **`name`** (строковый). Использование `headerRow.id` / `header.id` в скрипте при работе с шапкой `operation` или `enum` приводит к `undefined` в фильтре — запрос **молча возвращает 0 строк, без серверной ошибки**. Эту ловушку легко проглядеть при ревью.
+
+**Правило.** В QueryBuilder, когда нужно отфильтровать строки табличной части по конкретной шапке, использовать имя PK **в соответствии с видом**:
+
+```javascript
+// operation/loan — фильтруем строки табличной части books по конкретной выдаче
+const rows = await from("operation.loan.books")
+  .where("object_uid = @ouid and is_returned = @notReturned")
+  .parameter("ouid", headerRow.number, 11)        // ← number, не id, для operation
+  .parameter("notReturned", false, 3)
+  .query();
+
+// catalog/<name> — для шапки catalog был бы id (DbType 11)
+//   .parameter("ouid", headerRow.id, 11)
+
+// enum/<name> — для шапки enum было бы name (DbType 16 — System.String)
+//   .parameter("ouid", headerRow.name, 16)
+```
+
+**Перед написанием скрипта**, обращающегося к табличной части через `object_uid`, открывай соответствующий `kind.*.json` в `project/metadata/system/kinds/` и проверяй, какая стандартная колонка помечена `PrimaryKey: true`. Не полагайся на «по аналогии с другим видом».
+
+> Эмпирика добыта на реализации `sandbox-04` (2026-05-17): первый запуск workflow `overdue_loans` отдавал пустой результат, потому что в фильтре стояло `headerRow.id` вместо `headerRow.number`. Сервер не падал — `object_uid = undefined` молча отсекало все строки.
 
 ## Шаг `if`
 
@@ -227,4 +260,4 @@
 - В `.bjs`-скриптах предпочитать QueryBuilder и `DataTable`-хелперы.
 - **Никаких сторонних npm-зависимостей.**
 - Комментарии в `.bjs` — на языке окружающих файлов (обычно русский).
-- Примеры — в `../../../reference/metadata/workflow/`.
+- Примеры — в `reference/metadata/workflow/`.

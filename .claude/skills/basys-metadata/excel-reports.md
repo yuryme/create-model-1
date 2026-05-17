@@ -2,7 +2,7 @@
 
 **Supporting-файл скилла `basys-metadata`.** Открывать при работе с Excel-отчётами (печатные формы, регламентированная отчётность, отчёты по макету). Основной файл скилла — `SKILL.md`.
 
-**Первоисточник:** `../../../basys-docs/ru/reporting/excelReport.md`.
+**Первоисточник:** `basys-docs/ru/reporting/excelReport.md`.
 
 ## Что такое Excel Report
 
@@ -169,4 +169,4 @@ AI не пишет `.xlsx`-файлы, но инструктирует поль�
 - `Memo` заполнен на метаобъекте и на каждом источнике/фильтре (по-русски).
 - `IsActive = true`, если пользователь не попросил скрыть.
 - Запись в `system/dataTypes.json` **не добавлять** — `excel_report` не reference.
-- Примеры — в `../../../reference/metadata/excel_report/`.
+- Примеры — в `reference/metadata/excel_report/`.

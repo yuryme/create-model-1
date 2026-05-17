@@ -2,7 +2,7 @@
 
 **Supporting-файл скилла `basys-metadata`.** Открывать только при работе с командами форм. Основной файл скилла — `SKILL.md`.
 
-**Первоисточник:** `../../../basys-docs/ru/commands/` (в т.ч. `programmableCommands.md`).
+**Первоисточник:** `basys-docs/ru/commands/` (в т.ч. `programmableCommands.md`).
 
 ## Что такое команда
 
@@ -95,7 +95,7 @@
 | `setIsModified(value)` | void | Установить флаг `isModified`. |
 | `setIsWaiting(value)` | void | Показать/скрыть индикатор ожидания. |
 
-Подробности и сигнатуры — `../../../basys-docs/ru/commands/programmableCommands.md`.
+Подробности и сигнатуры — `basys-docs/ru/commands/programmableCommands.md`.
 
 ### Особенности
 
